@@ -22,7 +22,7 @@ function Header({}: Props) {
           <ConnectWallet colorMode='light' accentColor='rgb(59, 130, 246)'/>
 
           <p className='headerLink'>Daily Deals</p>
-          <p className='headerLink'>HElp and Contact</p>
+          <p className='headerLink'>Help and Contact</p>
         </div>
 
         <div className='flex items-center space-x-4 text-sm'>
