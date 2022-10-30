@@ -24,7 +24,7 @@ const Home = () => {
 
     <main className="max-w-6xl mx-auto p-2">
       {loadingListings ? (
-        <p className="text-center animate-pluse text-blue-500">Loading Listing</p>
+        <p className="text-center animate-pluse text-blue-500">Loading Listing...</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto">
           {listings?.map(listing =>(        
@@ -46,7 +46,9 @@ const Home = () => {
                 </div>
 
                 <p>
-                  <span className="font-bold mr-1">{listing.buyoutCurrencyValuePerToken.displayValue}</span>{listing.buyoutCurrencyValuePerToken.symbol}
+                  <span className="font-bold mr-1">
+                    {listing.buyoutCurrencyValuePerToken.displayValue}</span>
+                  {listing.buyoutCurrencyValuePerToken.symbol}
                 </p>
 
                 <div className={`
