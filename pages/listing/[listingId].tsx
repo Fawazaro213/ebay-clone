@@ -166,11 +166,13 @@ function ListingPage() {
             bid: bidAmount,
           }, {
             onSuccess(data, variables, context) {
+              toast.dismiss();
               toast.success('Bid made successfully!');
               console.log('SUCCESS', data, variables, context);
             },
             onError(error, variables, context) {
-              toast.error('ERROR: Bid could not be bought');
+              toast.dismiss();
+              toast.error('ERROR: could not Bid');
               console.log("ERROR", error, variables, context);
             }
           })
@@ -182,18 +184,15 @@ function ListingPage() {
   }
 
   if (!listing) {
-    return <div>Listing not found</div>
-  };
-
-  if (isLoading)
     return (
-    <div>
-      <Header />
-      <div className='text-center animate-pluse text-blue-500'>
-        <p>Loading Item...</p>
+      <div>
+        <Header />
+        <div className='text-center animate-pluse text-blue-500'>
+          <p>Loading Item...</p>
+          </div>
         </div>
-      </div>
-      );
+        );
+  };
 
   return (
     <div>
@@ -208,14 +207,14 @@ function ListingPage() {
             <div>
               <h1 className='text-xl font-bold'>{listing.asset.name}</h1>
               <p className='text-gray-600'>{listing.asset.description}</p>
-              <p className='flex space-x-2 items-center text-xs sm:text-base'>
+              <p className='flex space-x-1 items-center text-xs sm:text-base'>
                 <UserCircleIcon className='h-5 '/>
                 <span className='font-bold pr-2'>Seller: </span>
                 {listing.sellerAddress}</p>
             </div>
 
             <div className='grid grid-cols-2 items-center py-2'>
-              <p className='font-bold'>List Type:</p>
+              <p className='font-bold'>Listing Type:</p>
               <p className=''>
                 {listing.type === ListingType.Direct 
               ? "Direct Listing" 
