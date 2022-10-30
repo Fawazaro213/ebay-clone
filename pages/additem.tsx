@@ -50,6 +50,7 @@ export default function additem({}: Props) {
             toast.success('Minting Success!');
             router.push('/');
         } catch (err) {
+            toast.dismiss();
             toast.error('NFT not Added.')
             console.error(err)
         }

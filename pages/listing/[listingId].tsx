@@ -210,12 +210,12 @@ function ListingPage() {
               <p className='text-gray-600'>{listing.asset.description}</p>
               <p className='flex space-x-2 items-center text-xs sm:text-base'>
                 <UserCircleIcon className='h-5 '/>
-                <span className='font-bold pr-1'>Seller: </span>
+                <span className='font-bold pr-2'>Seller: </span>
                 {listing.sellerAddress}</p>
             </div>
 
             <div className='grid grid-cols-2 items-center py-2'>
-              <p className='font-bold'></p>
+              <p className='font-bold'>List Type:</p>
               <p className=''>
                 {listing.type === ListingType.Direct 
               ? "Direct Listing" 
@@ -224,7 +224,8 @@ function ListingPage() {
 
               <p className='font-bold'>Buy it Now Price:</p>
               <p className='text-4xl font-bold'>
-                {listing.buyoutCurrencyValuePerToken.displayValue} 
+              {listing.buyoutCurrencyValuePerToken.displayValue} 
+              <br />
               {listing.buyoutCurrencyValuePerToken.symbol}
               </p>
 
