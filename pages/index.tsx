@@ -8,9 +8,12 @@ import {
     MediaRenderer 
 } from "@thirdweb-dev/react";
 import { ListingType } from "@thirdweb-dev/sdk";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import Header from "../components/header"
 
 const Home = () => {
+  const router = useRouter();
   const { contract } =useContract(process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT, 'marketplace');
 
   const { data: listings, isLoading: loadingListings } = useActiveListings(contract);
@@ -24,9 +27,13 @@ const Home = () => {
         <p className="text-center animate-pluse text-blue-500">Loading Listing</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto">
-          {listings?.map(listing =>(
-            <div className="flex flex-col card hover:scale-105 transition-all duration-150 ease-out"
-             key={listing.id}>
+          {listings?.map(listing =>(        
+             <div
+             key={listing.id} 
+             onClick={() => router.push(`/listing/${listing.id}`)}
+             className="flex flex-col card hover:scale-105 
+             transition-all duration-150 ease-out"
+             >
               <div className="flex flex-1 flex-col pb-2 items-center">
                 <MediaRenderer className="w-44" src={listing.asset.image} />
               </div>

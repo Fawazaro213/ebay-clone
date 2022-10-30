@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import Header from '../components/header';
 import { useAddress, useContract } from "@thirdweb-dev/react";
 import { useRouter } from 'next/router';
+import toast, { Toaster } from 'react-hot-toast';
 
 type Props = {}
 
@@ -35,6 +36,7 @@ export default function additem({}: Props) {
             description: target.description.value,
             image: image,
         }
+        toast.loading('Minting NFT...')
 
         try {
             const tx = await contract.mintTo(address, metadata);
@@ -44,8 +46,11 @@ export default function additem({}: Props) {
             const nft = await tx.data;
 
             console.log(receipt, tokenId, nft);
+            toast.dismiss();
+            toast.success('Minting Success!');
             router.push('/');
         } catch (err) {
+            toast.error('NFT not Added.')
             console.error(err)
         }
     }
@@ -93,7 +98,10 @@ export default function additem({}: Props) {
                         }
                     }} />
  
-                    <button type='submit' className='bg-blue-600 text-white font-bold rounded-full py-4 w-56 mt-5 md:mt-auto mx-auto md:ml-auto'>Add/Mint Item</button>
+                    <button  type='submit' className='bg-blue-600 text-white font-bold rounded-full py-4 w-56 mt-5 
+                    md:mt-auto mx-auto md:ml-auto active:scale-125 transition-transform duration-300'>
+                        Add/Mint Item
+                        </button>
                 </form>
             </div>
         </main>

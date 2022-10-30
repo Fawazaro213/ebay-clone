@@ -1,4 +1,4 @@
-import { useAddress, useDisconnect, useMetamask } from '@thirdweb-dev/react';
+import { ConnectWallet, useAddress, useDisconnect, useMetamask } from '@thirdweb-dev/react';
 import React from 'react';
 import Link from "next/link";
 import { BellIcon, ShoppingCartIcon, ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
@@ -7,18 +7,19 @@ import Image from "next/image";
 type Props = {}
 
 function Header({}: Props) {
-  const connectwithMetamask = useMetamask();
-  const disconnect = useDisconnect();
+  // const connectwithMetamask = useMetamask();
+  // const disconnect = useDisconnect();
   const address = useAddress();
   return (
     <div className='max-w-6xl mx-auto p-2'>
       <nav className='flex justify-between'>
         <div className='flex items-center space-x-2 text-sm'>
-          {address ? (
+          {/* {address ? (
             <button onClick={disconnect} className='connectWalletBtn'>Hi, {address.slice(0,5) + "..." + address.slice(-4)}</button>
           ) : (
             <button onClick={connectwithMetamask} className='connectWalletBtn'>Connect your wallet</button>
-          )}
+          )} */}
+          <ConnectWallet colorMode='light' accentColor='rgb(59, 130, 246)'/>
 
           <p className='headerLink'>Daily Deals</p>
           <p className='headerLink'>HElp and Contact</p>

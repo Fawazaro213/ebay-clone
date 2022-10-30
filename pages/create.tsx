@@ -13,6 +13,7 @@ import {
 import { ChainId, NFT, NATIVE_TOKENS, NATIVE_TOKEN_ADDRESS, } from '@thirdweb-dev/sdk';
 import network from '../utils/network';
 import Router, { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 
 type Props = {}
@@ -39,14 +40,14 @@ export default function Create({}: Props) {
 
     const { 
         mutate: createDirectListing, 
-        isLoading, 
-        error
+        isLoading: isLoadingDirect, 
+        error: errorDirect
     } = useCreateDirectListing(contract);
 
     const { 
         mutate: createAuctionListing, 
-        isLoading: isLoadingDirect, 
-        error: errorDirect 
+        isLoading, 
+        error 
     } = useCreateAuctionListing(contract);
 
     const handleCreateListing = async (e: FormEvent<HTMLFormElement>) => {
@@ -66,6 +67,8 @@ export default function Create({}: Props) {
         const { ListingType, price } = target.elements;
 
         if (ListingType.value === 'directListing') {
+
+            toast.loading('Listing Item...')
             createDirectListing({
                 assetContractAddress: process.env.NEXT_PUBLIC_COLLECTION_CONTRACT!,
                 tokenId: selectedNft.metadata.id,
@@ -76,16 +79,22 @@ export default function Create({}: Props) {
                 startTimestamp: new Date()
             }, {
                 onSuccess(data, variables, context) {
+                    toast.dismiss();
+                    toast.success('Item listed successfully');
                     console.log('SUCCESS: ', data, variables, context);
                     router.push('/');
                 },
                 onError(error, variables, context) {
+                    toast.dismiss();
+                    toast.error('ERROR: unable to list item');
                     console.log('ERROR: ', error, variables, context);
                 }
             });
         };
 
         if (ListingType.value === 'auctionListing') {
+
+            toast.loading('Listing Item...')
             createAuctionListing({
                 assetContractAddress: process.env.NEXT_PUBLIC_COLLECTION_CONTRACT!,
                 tokenId: selectedNft.metadata.id,
@@ -97,10 +106,14 @@ export default function Create({}: Props) {
                 reservePricePerToken: 0
             }, {
                 onSuccess(data, variables, context) {
+                toast.dismiss();
+                 toast.success('Item listed successfully');
                 console.log('SUCCESS: ', data, variables, context);
                 router.push('/');
             },
             onError(error, variables, context) {
+                toast.dismiss();
+                toast.error('ERROR: unable to list item');
                 console.log('ERROR: ', error, variables, context);
             }
         });
@@ -154,7 +167,8 @@ export default function Create({}: Props) {
                             />
                         </div>
 
-                        <button type='submit' className='bg-blue-600 text-white rounded-l p-4 mt-8'>Create Listing</button>
+                        <button type='submit' className='bg-blue-600 text-white rounded-l p-4 mt-8 
+                        active:scale-125 transition-transform duration-300'>Create Listing</button>
                     </div>
                 </form>
             )}
