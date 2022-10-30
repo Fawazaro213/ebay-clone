@@ -241,42 +241,41 @@ function ListingPage() {
                 <p className='font-bold'>
                   {offers.length > 0 ? offers.length : 0}
                 </p>
-                
-                <p>
-                  {offers?.map(offer => (
+  
+                  {offers.map(offer => (
                     <>
                     <p className='flex items-center ml-5 text-sm italic'>
                       <UserCircleIcon className='h-3 mr-2' />
-                      {offer?.offerer?.slice(0, 5) 
+                      {offer.offeror.slice(0, 5) 
                       + "..." 
-                      + offer?.offerer?.slice(-5)}
+                      + offer.offeror.slice(-5)}
                     </p>
-                    <div>
                       <p
                       key={
                         offer.listingId +
                         offer.offerer +
-                        offer.totalAmount.toString()
+                        offer.totalOfferAmount.toString()
                       }
-                       className='text-sm italic'>
-                        {ethers.utils.formatEther(offer.totalAmount)}{""}
+                       className='flex justify-between w-50 text-sm italic'>
+                        {ethers.utils.formatEther(offer.totalOfferAmount)}{""}
                         {NATIVE_TOKENS[network].symbol}
-                      </p>
 
-                      {listing.sellerAddress === address &&(
+                        {listing.sellerAddress === address &&(
                         <button
                         onClick={() => {
                           acceptOffer({
-                            addressOfOfferor: offer.offerer,
                             listingId,
+                            addressOfOfferor: offer.offeror,
                           }, {
                             onSuccess(data, variables, context) {
-                              toast.success('Offer made successfully!');
+                              toast.dismiss()
+                              toast.success('Offer accepted successfully!');
                               console.log('SUCCESS', data, variables, context);
                               router.replace('/');
                             },
                             onError(error, variables, context) {
-                              toast.error('ERROR: Offer could not be bought');
+                              toast.dismiss()
+                              toast.error('ERROR: Offer could not be accepted');
                               console.log("ERROR", error, variables, context);
                             }
                           });
@@ -287,10 +286,9 @@ function ListingPage() {
                           Accept Offer
                         </button>
                       )}
-                    </div>
+                      </p>
                     </>
                   ))}
-                </p>
               </div>
             )}
 
