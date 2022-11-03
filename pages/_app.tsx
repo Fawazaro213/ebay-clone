@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThirdwebProvider desiredChainId={network}>
+  <ThirdwebProvider desiredChainId={network}>
   <Component {...pageProps} />
   <Toaster position="top-center" reverseOrder={false} />
   </ThirdwebProvider>

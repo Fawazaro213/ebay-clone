@@ -135,7 +135,7 @@ export default function Create({}: Props) {
                     <div
                      onClick={ () => setSelectedNft(nft)}
                      key={nft.metadata.id}
-                     className={`flex-col space-y-2 card min-w-fit border-2 bg-gray-100 ${nft.metadata.id === selectedNft?.metadata.id ? "border-black" : 'border-transparent'}`}
+                     className={`flex-col space-y-2 card w-56 border-2 bg-gray-100 ${nft.metadata.id === selectedNft?.metadata.id ? "border-black" : 'border-transparent'}`}
                      >
                         <MediaRenderer className='h-48 rounded-lg' src={nft.metadata.image} />
                         <p className='text-lg font-bold truncate'>{nft.metadata.name}</p>

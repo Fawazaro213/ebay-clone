@@ -8,6 +8,7 @@ import {
     MediaRenderer 
 } from "@thirdweb-dev/react";
 import { ListingType } from "@thirdweb-dev/sdk";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Header from "../components/header"
@@ -19,9 +20,13 @@ const Home = () => {
   const { data: listings, isLoading: loadingListings } = useActiveListings(contract);
 
   return (
-    <div className="">
-      <Header />
+    <div>
+       <Head>
+        <title>AnimeNFT Marketplace</title>
+        <link rel="icon" type='image/png' href="/favicon.png" />
+      </Head>
 
+      <Header />
     <main className="max-w-6xl mx-auto p-2">
       {loadingListings ? (
         <p className="text-center animate-pluse text-blue-500">Loading Listing...</p>
@@ -46,9 +51,7 @@ const Home = () => {
                 </div>
 
                 <p>
-                  <span className="font-bold mr-1">
-                    {listing.buyoutCurrencyValuePerToken.displayValue}</span>
-                  {listing.buyoutCurrencyValuePerToken.symbol}
+                  <span className="font-bold mr-1">{listing.buyoutCurrencyValuePerToken.displayValue}</span>{listing.buyoutCurrencyValuePerToken.symbol}
                 </p>
 
                 <div className={`

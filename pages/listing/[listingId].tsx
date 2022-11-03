@@ -195,11 +195,14 @@ function ListingPage() {
   };
 
   return (
-    <div>
+    <div className='bg-gradient-to-r from-gray-400 to-white-500'>
         <Header />
-
-        <main className='max-w-6xl mx-auto p-2 flex flex-col lg:flex-row space-y-10 space-x-5 pr-10'>
-          <div className='p-10  border mx-auto lg:mx-0 max-w-md lg:max-w-xl'>
+        <main className='max-w-6xl 
+        mx-auto p-2 flex flex-col 
+        h-screen
+        lg:flex-row 
+        space-y-10 space-x-5 pr-10'>
+          <div className='p-10 border mx-auto lg:mx-0 max-w-md lg:max-w-xl'>
             <MediaRenderer src={listing.asset.image} />
           </div>
 
